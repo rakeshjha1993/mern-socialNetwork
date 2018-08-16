@@ -27,8 +27,10 @@ router.get('/', passport.authenticate('jwt', {
 }), (req, res) => {
     const errors = {};
 
-    Profile.findOne({user: req.user.id}).then(profile => {
-        if(!profile){
+    Profile.findOne({
+        user: req.user.id
+    }).then(profile => {
+        if (!profile) {
             errors.profile = "No Profile Found";
             return res.status(404).json(errors);
         }
@@ -40,8 +42,20 @@ router.get('/', passport.authenticate('jwt', {
 // @desc Create profile
 // @access Private
 
-router.post('/',passport.authenticate('jwt',{session:false}),(req,res) => {
-    
+router.post('/', passport.authenticate('jwt', {
+    session: false
+}), (req, res) => {
+    const profileFields = {};
+    if (req.body.handle) profileFields.handle = req.body.handle;
+    if (req.body.company) profileFields.company = req.body.company;
+    if (req.body.handle) profileFields.handle = req.body.handle;
+    if (req.body.handle) profileFields.handle = req.body.handle;
+    if (req.body.handle) profileFields.handle = req.body.handle;
+    if (req.body.handle) profileFields.handle = req.body.handle;
+    if (req.body.handle) profileFields.handle = req.body.handle;
+    if (req.body.handle) profileFields.handle = req.body.handle;
+    if (req.body.handle) profileFields.handle = req.body.handle;
+    if (req.body.handle) profileFields.handle = req.body.handle;
 })
 
 
