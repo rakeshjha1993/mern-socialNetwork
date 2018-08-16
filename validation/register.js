@@ -14,7 +14,7 @@ module.exports = function validateRegisterInput(data) {
     }
     if (!validator.isLength(data.name, {
             min: 2,
-            max: 12
+            max: 24
         })) {
         errors.name = 'Name must be in between 2 to 12 characters'
 

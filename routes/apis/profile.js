@@ -128,4 +128,60 @@ router.post(
     }
 );
 
+// @Route GET api/profiles/handle/:handle
+// @desc Fetch user from handle
+// @access Public
+
+router.get('/handle/:handle', (req, res) => {
+    const errors = {};
+    Profile.findOne({
+            handle: req.params.handle
+        })
+        .populate('user', ['name', 'avatar'])
+        .then(profile => {
+            if (!profile) {
+                errors.noprofile = "There is no profile for this user";
+                return res.status(400).json(errors);
+            }
+            res.json(profile);
+        }).catch(err => {
+            return res.status(400).json(err);
+        })
+});
+
+// @Route GET api/profiles/user/:user_id
+// @desc Fetch user from handle
+// @access Public
+
+router.get('/user/:user_id', (req, res) => {
+    const errors = {};
+    Profile.findOne({
+            user: req.params.user_id
+        })
+        .populate('user', ['name', 'avatar'])
+        .then(profile => {
+            if (!profile) {
+                errors.noprofile = "There is no profile for this user";
+                return res.status(404).json(errors);
+            }
+            res.json(profile);
+        }).catch(err => {
+            return res.status(404).json(err);
+        })
+});
+
+// @Route GET api/profiles/all/
+// @desc Fetch all users profile
+// @access Public
+
+router.get('/all', (req, res) => {
+    Profile.find({}).populate('user', ['name', 'avatar']).then((profiles) => {
+        if (!profiles) {
+            errors.profiles = "Profiles not Found";
+            return res.status(404).json(errors);
+        }
+        res.json(profiles);
+    }).catch(error => res.status(404).json(error));
+});
+
 module.exports = router;

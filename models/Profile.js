@@ -88,28 +88,28 @@ const profileSchema = new Schema({
             type: String
         }
     }],
-    social : {
+    social: {
         youtube: {
-            type:String
+            type: String
         },
         facebook: {
-            type:String
+            type: String
         },
         linkedIn: {
-            type:String
+            type: String
         },
         twitter: {
-            type:String
+            type: String
         },
         instagram: {
-            type:String
+            type: String
         },
-        date : {
-            type: Date,
-            default : Date.now
-        }
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
 
 });
 
-module.exports = Profile = mongoose.model('profiles',profileSchema);
+module.exports = Profile = mongoose.model('profiles', profileSchema);
