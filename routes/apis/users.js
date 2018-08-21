@@ -45,9 +45,9 @@ router.post('/', (req, res) => {
         if (user) {
             errors.email = "Email already exists";
             console.log(errors);
-            return res.status(400).json({
+            return res.status(400).json(
                 errors
-            });
+            );
         } else {
             const avatar = gravatar.url(req.body.email, {
                 s: '200', //size
