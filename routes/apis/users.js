@@ -102,9 +102,9 @@ router.post('/login', (req, res) => {
     }).then((user) => {
         if (!user) {
             errors.email = "Email Not Found";
-            return res.status(404).json({
+            return res.status(404).json(
                 errors
-            });
+            );
         }
 
         // Check Password
@@ -130,11 +130,11 @@ router.post('/login', (req, res) => {
                 });
             } else {
                 errors.password = "Password is Incorrect";
-                return res.status(400).json({
+                return res.status(400).json(
                     errors
-                })
+                )
             }
-        }).catch((err) => console.log(err));
+        }).catch((err) => res.status(400).json(err));   
 
     })
 });

@@ -12,6 +12,10 @@ import {
     DropdownMenu,
     DropdownItem } from 'reactstrap';
 
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux';
+import {logoutUser} from '../../actions/authActions';
+
 class NavBar extends Component {
     constructor(props){
         super(props);
@@ -65,4 +69,15 @@ class NavBar extends Component {
     }
 }
 
-export default NavBar;
+NavBar.proptypes = {
+    auth : PropTypes.object.isRequired,
+    logoutUser : PropTypes.func.isRequired
+}   
+
+const mapStateToProps = (state) => {
+    auth : state.auth
+}
+
+
+
+export default connect(mapStateToProps,{logoutUser})(NavBar);
