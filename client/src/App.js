@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-=======
 import React, { Component } from "react";
 import NavBar from './Components/layout/Navbar';
 import Footer from './Components/layout/Footer';
@@ -16,22 +11,10 @@ import "./App.css";
 
 
 
->>>>>>> 865dea7399e61a586df913efcd6f04b4c0ccc3a0
 
 class App extends Component {
   render() {
     return (
-<<<<<<< HEAD
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-=======
       <Provider store = {store}>
       <Router>
         <div className="App">
@@ -45,7 +28,6 @@ class App extends Component {
         </div>
       </Router>
       </Provider>
->>>>>>> 865dea7399e61a586df913efcd6f04b4c0ccc3a0
     );
   }
 }
