@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import {connect } from 'react-redux';
+// import {withRouter} from 'react-router-dom';
 import {loginUser} from '../../actions/authActions';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { ProtoType } from 'prop-types';
@@ -25,6 +26,12 @@ class Login extends Component {
 
   onChange (event) {
     this.setState({[event.target.name] : event.target.value});
+  }
+
+  componentDidMount(){
+    if(this.props.auth.isAuthenticated){
+      this.props.history.push('/dashboard');
+    }
   }
 
 
