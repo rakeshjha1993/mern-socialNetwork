@@ -20,6 +20,7 @@ class NavBar extends Component {
     constructor(props){
         super(props);
         this.toggle = this.toggle.bind(this);
+        this.logoutClick = this.logoutClick.bind(this);
         this.state = {
           isOpen: false
         };
@@ -30,8 +31,18 @@ class NavBar extends Component {
           isOpen: !this.state.isOpen
         });
     }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.errors){
+            this.setState({errors : nextProps.errors});
+          }
+    }
+    logoutClick(){
+        this.props.logoutUser();
+        console.log(this.props);
+    }
 
     render () {
+        const {auth} = this.props;
         return (
             <Navbar color="dark" dark expand="md">
             <NavbarBrand href="/">Social Network</NavbarBrand>
@@ -56,13 +67,11 @@ class NavBar extends Component {
                     Option 2
                     </DropdownItem>
                     <DropdownItem divider />
-                    <DropdownItem>
-                    Reset
-                    </DropdownItem>
+                   {auth.isAuthenticated && (<DropdownItem onClick={this.logoutClick}> {auth.user.name}</DropdownItem>)}
                 </DropdownMenu>
                 </UncontrolledDropdown>
             </Nav>
-            </Collapse>
+            </Collapse> 
         </Navbar>
         
       );
@@ -74,9 +83,9 @@ NavBar.proptypes = {
     logoutUser : PropTypes.func.isRequired
 }   
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state) => ({
     auth : state.auth
-}
+});
 
 
 
