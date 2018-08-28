@@ -15,6 +15,8 @@ import {
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import {logoutUser} from '../../actions/authActions';
+import { clearCurrentProfile } from '../../actions/profileActions';
+import {Link, withRouter} from 'react-router-dom';
 
 class NavBar extends Component {
     constructor(props){
@@ -23,6 +25,7 @@ class NavBar extends Component {
         this.state = {
           isOpen: false
         };
+        this.userLogoutClick = this.userLogoutClick.bind(this);
     }
 
     toggle() {
@@ -31,7 +34,46 @@ class NavBar extends Component {
         });
     }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.errors) {
+            this.setState({errors : nextProps.errors});
+        }
+    }
+
+    userLogoutClick(e) {
+        e.preventDefault(); 
+        this.props.clearCurrentProfile();
+        this.props.logoutUser();
+        this.props.history.push('/login');
+    }
+
     render () {
+
+            const {isAuthenticated, user} =  this.props.auth;
+            console.log(isAuthenticated);
+            const authLinks = (
+                <DropdownMenu right>    
+                    <DropdownItem>
+                    <Link to="/user/profile">{user && user.name}</Link>
+                    </DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem>
+                        <a onClick={this.userLogoutClick}> Logout </a>
+                    </DropdownItem>
+                </DropdownMenu>);
+            
+            const guestLinks = (
+                <DropdownMenu right>    
+                    <DropdownItem>
+                        <Link to="/login">Login</Link>
+                    </DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem>
+                        <Link to="/register">SignUp</Link>
+                    </DropdownItem>
+                </DropdownMenu>);
+
+
         return (
             <Navbar color="dark" dark expand="md">
             <NavbarBrand href="/">Social Network</NavbarBrand>
@@ -39,27 +81,16 @@ class NavBar extends Component {
             <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
                 <NavItem>
-                <NavLink href="/components/">Components</NavLink>
+                <NavLink href="/components/">Home</NavLink>
                 </NavItem>
                 <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+                <NavLink to="/about-us">About Us</NavLink>
                 </NavItem>
                 <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                    Options
+                    <i className="fa fa-user-circle-o" aria-hidden="true"></i>
                 </DropdownToggle>
-                <DropdownMenu right>
-                    <DropdownItem>
-                    Option 1
-                    </DropdownItem>
-                    <DropdownItem>
-                    Option 2
-                    </DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem>
-                    Reset
-                    </DropdownItem>
-                </DropdownMenu>
+                    { isAuthenticated ? authLinks : guestLinks}
                 </UncontrolledDropdown>
             </Nav>
             </Collapse>
@@ -71,13 +102,14 @@ class NavBar extends Component {
 
 NavBar.proptypes = {
     auth : PropTypes.object.isRequired,
-    logoutUser : PropTypes.func.isRequired
+    logoutUser : PropTypes.func.isRequired,
+    clearCurrentProfile : PropTypes.func.isRequired
 }   
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state) => ({
     auth : state.auth
-}
+})
 
 
 
-export default connect(mapStateToProps,{logoutUser})(NavBar);
+export default connect(mapStateToProps,{logoutUser,clearCurrentProfile})(withRouter(NavBar));
