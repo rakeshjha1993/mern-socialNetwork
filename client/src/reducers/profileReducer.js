@@ -1,5 +1,5 @@
 
-import {GET_PROFILE, PROFILE_LOADING, GET_ERRORS, CLEAR_CURRENT_PROFILE} from '../actions/types';
+import {GET_PROFILE, PROFILE_LOADING, GET_ERRORS, CLEAR_CURRENT_PROFILE, SET_PROFILE} from '../actions/types';
 
 const initialState = {
     profile : null,
@@ -27,6 +27,12 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 profile : null,
+            }
+
+        case SET_PROFILE :
+            return {
+                ...state,
+                profile : action.payload
             }
         default :
             return state;
