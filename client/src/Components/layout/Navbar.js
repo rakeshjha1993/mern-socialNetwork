@@ -44,12 +44,6 @@ class NavBar extends Component {
         console.log(this.props);
     }
 
-    componentWillReceiveProps(nextProps){
-        if(nextProps.errors) {
-            this.setState({errors : nextProps.errors});
-        }
-    }
-
     userLogoutClick(e) {
         e.preventDefault(); 
         this.props.clearCurrentProfile();
