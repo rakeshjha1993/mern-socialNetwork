@@ -63,7 +63,6 @@ class Register extends Component {
 
     return (
       <div className="col-md-6 mr-auto ml-auto">
-          {user ? user.name : null}
           <h1 className="text-center mt-5">Register</h1>
           <h6 className="text-center mb-3">Create Social Network Account</h6>
           <Form onSubmit={this.onSubmit} noValidate>
