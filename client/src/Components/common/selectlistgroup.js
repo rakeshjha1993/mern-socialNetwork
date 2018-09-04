@@ -13,23 +13,18 @@ const SelectListGroup = ({
   error,
   info,
   onChange,
-  disabled,
-  multiple
 
 }) => {
-  const Options = options.map(option => (<option>{option}</option>)) 
-
+  const selectOptions = options.map(option => (<option key={option.label} value={option.value}>{option.label}</option>)) 
+  
   return (
     <div className="form-group">
       <select 
       name = {name}
       className={classnames('form-control form-control-lg' , {'is-invalid' : error})}
-      multiple = {multiple}
       onChange = {onChange}
-      disabled = {disabled}
-      value = {value}
       >
-       {Options}
+        {selectOptions}
       </select>
       {info && (<small className="form-text text-muted">{info}</small>)}
       {error && (<div className="invalid-feedback">{error}</div>)}
@@ -39,17 +34,12 @@ const SelectListGroup = ({
 
 SelectListGroup.propTypes = {
   name : PropTypes.string.isRequired,
-  placeholder : PropTypes.string,
   value : PropTypes.string,
   info : PropTypes.string,
   error : PropTypes.string,
-  type : PropTypes.string.isRequired,
   onChange : PropTypes.func.isRequired,
-  disabled : PropTypes.string
+  options : PropTypes.array.isRequired
 }
 
-SelectListGroup.defaultProps = {
-  type : 'text'
-}
 
 export default SelectListGroup;
