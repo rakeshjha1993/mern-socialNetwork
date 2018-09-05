@@ -35,6 +35,7 @@ router.get(
         Profile.findOne({
                 user: req.user.id
             })
+            .populate('user',['name','avatar'])
             .then(profile => {
                 if (!profile) {
                     errors.profile = "No Profile Found";
@@ -67,6 +68,7 @@ router.post(
 
         //Get Fields
         const profileFields = {};
+        profileFields.user = req.user.id;
         if (req.body.handle) profileFields.handle = req.body.handle;
         if (req.body.company) profileFields.comapny = req.body.company;
         if (req.body.website) profileFields.website = req.body.website;
@@ -84,16 +86,16 @@ router.post(
 
         // Assigning social Object
         profileFields.social = {};
-        if (req.body.social.youtube)
-            profileFields.social.youtube = req.body.social.youtube;
-        if (req.body.social.facebook)
-            profileFields.social.facebook = req.body.social.facebook;
-        if (req.body.social.twitter)
-            profileFields.social.twitter = req.body.social.twitter;
-        if (req.body.social.instagram)
-            profileFields.social.instagram = req.body.social.instagram;
-        if (req.body.social.linkedin)
-            profileFields.social.linkedin = req.body.social.linkedin;
+        if (req.body.youtube)
+            profileFields.social.youtube = req.body.youtube;
+        if (req.body.facebook)
+            profileFields.social.facebook = req.body.facebook;
+        if (req.body.twitter)
+            profileFields.social.twitter = req.body.twitter;
+        if (req.body.instagram)
+            profileFields.social.instagram = req.body.instagram;
+        if (req.body.linkedin)
+            profileFields.social.linkedin = req.body.linkedin;
 
         Profile.findOne({
                 user: req.user.id
@@ -102,31 +104,27 @@ router.post(
                 if (profile) {
                     console.log(profile);
                     // Update
-                    return Profile.findOneAndUpdate({
+                    Profile.findOneAndUpdate({
                         user: req.user.id
                     }, {
                         $set: profileFields
-                    }, {
+                    }, {    
                         new: true
-                    });
+                    }).then(profile => res.json(profile));
                 } else {
                     // Create New Profile
-
-                    return Profile.findOne({
-                        handle: profileFields.handle
-                    });
-                }
-            })
-            .then(profile => {
-                console.log(profile);
-                if (profile) {
-                    res.json(profile);
-                }
-                new Profile(profileFields).save().then(profile => {
-                    res.json(profile);
-                });
-            })
-            .catch(err => res.status(500).json(err));
+                        Profile.findOne({handle : profileFields.handle})
+                        .then(profile => {
+                            if(profile){
+                                errors.handle = "Handle already Exists"
+                            }
+                            new Profile(profileFields).save().then(profile => {
+                                res.json(profile);
+                            })
+                        })
+                    }}).catch(err => res.status(500).json(err));
+            
+            
     }
 );
 

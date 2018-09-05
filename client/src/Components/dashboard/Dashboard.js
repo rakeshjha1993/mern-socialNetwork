@@ -14,7 +14,7 @@ class Dashboard extends Component {
   render() {
     const {user} = this.props.auth;
     const {profile, loading} = this.props.profile;
-
+    console.log(profile);
     let dashboard;
 
     if(profile == null || loading){
@@ -22,11 +22,13 @@ class Dashboard extends Component {
     }else {
         // check if user has profile
         if(Object.keys(profile).length > 0){
-            dashboard = <h2>TODO : Profile</h2>
+            dashboard = (
+                <p className="lead text-muted">Welcome <Link to={`profile/${profile.handle}`}>{user.name}</Link></p>
+            )
         }else {
             dashboard = (
                 <div>
-                    <p>You have not created a profile yet</p>
+                    <p className="lead text-muted">Welcome {user.name}</p>
                     <Link to="/create-profile" className="btn btn-lg btn-info">Create Profile</Link>
                 </div>
             );
