@@ -22,6 +22,7 @@ class NavBar extends Component {
     constructor(props){
         super(props);
         this.toggle = this.toggle.bind(this);
+        this.logoutClick = this.logoutClick.bind(this);
         this.state = {
           isOpen: false
         };
@@ -33,11 +34,14 @@ class NavBar extends Component {
           isOpen: !this.state.isOpen
         });
     }
-
     componentWillReceiveProps(nextProps){
-        if(nextProps.errors) {
+        if(nextProps.errors){
             this.setState({errors : nextProps.errors});
-        }
+          }
+    }
+    logoutClick(){
+        this.props.logoutUser();
+        console.log(this.props);
     }
 
     userLogoutClick(e) {
@@ -93,7 +97,7 @@ class NavBar extends Component {
                     { isAuthenticated ? authLinks : guestLinks}
                 </UncontrolledDropdown>
             </Nav>
-            </Collapse>
+            </Collapse> 
         </Navbar>
         
       );
