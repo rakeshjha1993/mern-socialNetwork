@@ -4,6 +4,7 @@ import {connect } from 'react-redux';
 import {getCurrentProfile} from '../../actions/profileActions';
 import Spinner from '../common/spinner';
 import Link from 'react-router-dom/Link';
+import ProfileActions from './profileAction';
 
 class Dashboard extends Component {
 
@@ -23,7 +24,11 @@ class Dashboard extends Component {
         // check if user has profile
         if(Object.keys(profile).length > 0){
             dashboard = (
-                <p className="lead text-muted">Welcome <Link to={`profile/${profile.handle}`}>{user.name}</Link></p>
+                <div>
+                    <p className="lead text-muted">Welcome <Link to={`profile/${profile.handle}`}>{user.name}</Link></p>
+                     < ProfileActions />
+                </div>
+                  
             )
         }else {
             dashboard = (
