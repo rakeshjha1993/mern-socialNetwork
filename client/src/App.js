@@ -9,6 +9,7 @@ import Register from './Components/Auth/Register';
 import DashBoard from './Components/dashboard/Dashboard';
 import PrivateRoute from './Components/common/privateRoute';
 import CreateProfile from "./Components/create-profile/CreateProfile";
+import EditProfile from "./Components/edit-profile/editProfile";
 // Loading Modules Elements
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {Provider} from 'react-redux';
@@ -20,6 +21,7 @@ import "./App.css";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import { clearCurrentProfile } from "./actions/profileActions";
+import AddExperience from "./Components/add-experience/AddExperience";
 
 
 
@@ -63,6 +65,12 @@ class App extends Component {
             </Switch>
             <Switch>
               <PrivateRoute exact path="/create-profile" component= {CreateProfile} />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/edit-profile" component= {EditProfile} />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/add-experience" component= {AddExperience} />
             </Switch>
           </div>
           <Footer/>

@@ -60,6 +60,9 @@ class NavBar extends Component {
                     <DropdownItem>
                     <Link to="/user/profile">{user && user.name}</Link>
                     </DropdownItem>
+                    <DropdownItem>
+                        <Link to="/dashboard">Dashboard</Link>
+                    </DropdownItem>  
                     <DropdownItem divider />
                     <DropdownItem>
                         <a onClick={this.userLogoutClick}> Logout </a>
@@ -67,7 +70,8 @@ class NavBar extends Component {
                 </DropdownMenu>);
             
             const guestLinks = (
-                <DropdownMenu right>    
+                <DropdownMenu right>  
+                   
                     <DropdownItem>
                         <Link to="/login">Login</Link>
                     </DropdownItem>
@@ -75,6 +79,7 @@ class NavBar extends Component {
                     <DropdownItem>
                         <Link to="/register">SignUp</Link>
                     </DropdownItem>
+                    
                 </DropdownMenu>);
 
 

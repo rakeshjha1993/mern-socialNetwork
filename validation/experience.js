@@ -7,9 +7,7 @@ module.exports = function validateExperienceInput(data) {
     data.title = _.isEmpty(data.title) ? "" : data.title;
     data.company = _.isEmpty(data.company) ? "" : data.company;
     data.location = _.isEmpty(data.location) ? "" : data.location;
-    data.from = _.isEmpty(data.from) ? "" : data.from;
-    data.to = _.isEmpty(data.to) ? "" : data.from;
-    data.current = _.isEmpty(data.current) ? "" : data.current;
+  
     data.description = _.isEmpty(data.description) ? "" : data.description;
 
     if (validator.isEmpty(data.title)) {
